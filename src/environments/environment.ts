@@ -5,6 +5,8 @@
 import { Environment } from 'src/app/models/environment.model';
 
 export const environment: Environment = {
+  // apiHost: 'http://10.0.0.76',
+  // apiEndpoint: 'http://10.0.0.76:3333/api',
   apiHost: 'https://multipart-upload-api.onrender.com',
   apiEndpoint: 'https://multipart-upload-api.onrender.com/api',
   production: false

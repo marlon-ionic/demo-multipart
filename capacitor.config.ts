@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
-  appName: 'hrblock-multipart',
+  appName: 'demo-multipart',
   webDir: 'www',
   bundledWebRuntime: false
 };

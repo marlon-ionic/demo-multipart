@@ -13,6 +13,8 @@
     </ion-toolbar>
   </ion-header>
 
+  <ion-chip color="primary">API {{apiHost}}</ion-chip>
+
   <form [formGroup] = "uploadForm" (ngSubmit)="onSubmit()" class="ion-margin">
     <ion-input placeholder="First Name" formControlName="firstName"></ion-input>
     <ion-input placeholder="Last Name" formControlName="lastName"></ion-input>

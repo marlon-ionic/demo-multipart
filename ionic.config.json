@@ -1,5 +1,5 @@
 {
-  "name": "hrblock-multipart",
+  "name": "demo-multipart",
   "integrations": {
     "capacitor": {}
   },
