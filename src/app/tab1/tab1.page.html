@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Cordova Advanced HTTP
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Cordova Advanced HTTP</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form [formGroup] = "uploadForm" (ngSubmit)="onSubmit()" class="ion-margin">
+    <ion-input placeholder="First Name" formControlName="firstName"></ion-input>
+    <ion-input placeholder="Last Name" formControlName="lastName"></ion-input>
+    <ion-input placeholder="Email" formControlName="email"></ion-input>
+    <input formControlName="image" name="front" title="front" placeholder="Front Image" type="file" accept="image/png, image/jpeg" (change)="uploadChange($event)"/>
+    <div>
+      <ion-button color="primary" type="submit">Upload</ion-button>
+    </div>
+  </form>
+
+
+  <div *ngIf="isLoading" class="response-container">
+    <ion-chip color="warning">Loading</ion-chip>
+    <ion-spinner></ion-spinner>
+  </div>
+
+  <div *ngIf="responseData" class="response-container">
+    <ion-chip color="success">API Responded</ion-chip>
+    <div *ngFor="let item of responseData| keyvalue">Key: <b>{{item.key}}</b> and Value: <b>{{item.value}}</b></div>
+  </div>
+
+  <div *ngIf="errorResponse" class="response-container">
+    <ion-chip color="danger">API Error</ion-chip>
+    <div *ngFor="let item of errorResponse | keyvalue">Key: <b>{{item.key}}</b> and Value: <b>{{item.value}}</b></div>
+  </div>
+
+
+</ion-content>

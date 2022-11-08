@@ -1,0 +1,7 @@
+{
+  "name": "hrblock-multipart",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
