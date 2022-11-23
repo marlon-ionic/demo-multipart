@@ -6,7 +6,7 @@ const config: CapacitorConfig = {
   appName: 'demo-multipart',
   plugins: {
     CapacitorHttp: {
-      enabled: true,
+      enabled: false,
     },
     CapacitorCookies: {
       enabled: true,

@@ -39,11 +39,13 @@ export class Tab2Page implements OnInit {
     const url = `${environment.apiEndpoint}/upload`;
     console.log('submit for', url);
     this.isLoading = true;
-    this.http.get(url, { withCredentials: true, observe:'response' }).subscribe(response => {
+    this.http.get(url, { observe:'response' }).subscribe(response => {
         console.log('get', response.headers, response.headers.getAll('Set-Token'));
         this.processGetResponse(response);
       }, e => {
         console.error(`error with GET ${url}:`, e);
+        this.errorResponse = e;
+        this.isLoading = false;
       });
     console.log('submit');
     }
@@ -77,6 +79,7 @@ export class Tab2Page implements OnInit {
     this.formData.set('email', this.uploadForm.get('email')?.value);
     const cookieMap = await CapacitorCookies.getCookies();
     console.log('cookieMap', cookieMap);
+    // This simple API that I setup requires a `key` cookie (any value) be set. Otherwise the POST will return a 403 error
     await CapacitorCookies.setCookie({
       key: 'key',
       value: 'helloworld',

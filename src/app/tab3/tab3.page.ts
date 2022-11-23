@@ -40,11 +40,15 @@ export class Tab3Page implements OnInit {
     console.log('submit for', url);
     this.isLoading = true;
     try {
-      const getResponse = await CapacitorHttp.get({ url});
+      const getResponse = await CapacitorHttp.get({ url, webFetchExtra: {
+        credentials: 'include'
+      }});
       console.log('get', getResponse.headers, getResponse);
       this.processGetResponse(getResponse);
     } catch (e) {
       console.error(`error with GET ${url}:`, e);
+      this.isLoading = false;
+      this.errorResponse = e;
     }
     }
 
@@ -76,19 +80,28 @@ export class Tab3Page implements OnInit {
     this.formData.set('lastName', this.uploadForm.get('lastName')?.value);
     this.formData.set('email', this.uploadForm.get('email')?.value);
     const cookieMap = await CapacitorCookies.getCookies();
-    console.log('cookieMap', cookieMap);
+    console.log('cookies', cookieMap, document.cookie);
+
+
+    // This simple API that I setup requires a `key` cookie (any value) be set. Otherwise the POST will return a 403 error
     await CapacitorCookies.setCookie({
+      url: environment.apiEndpoint,
       key: 'key',
-      value: 'helloworld',
+      value: cookieMap.getkey || 'no-server-key',
     });
     try {
       const response  = await  CapacitorHttp.post({
         url: `${environment.apiEndpoint}/upload`,
-        responseType:'json'
+        responseType:'json',
+        webFetchExtra: {
+          credentials: 'include'
+        }
       });
       console.log('post', response);
+      this.responseData = response.data;
     } catch(e) {
       console.log('post: error', e);
+      this.errorResponse = e;
     } finally {
       this.isLoading = false;
     }
