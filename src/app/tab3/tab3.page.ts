@@ -40,9 +40,7 @@ export class Tab3Page implements OnInit {
     console.log('submit for', url);
     this.isLoading = true;
     try {
-      const getResponse = await CapacitorHttp.get({ url, webFetchExtra: {
-        credentials: 'include'
-      }});
+      const getResponse = await CapacitorHttp.get({ url });
       console.log('get', getResponse.headers, getResponse);
       this.processGetResponse(getResponse);
     } catch (e) {
@@ -92,10 +90,7 @@ export class Tab3Page implements OnInit {
     try {
       const response  = await  CapacitorHttp.post({
         url: `${environment.apiEndpoint}/upload`,
-        responseType:'json',
-        webFetchExtra: {
-          credentials: 'include'
-        }
+        responseType:'json'
       });
       console.log('post', response);
       this.responseData = response.data;
