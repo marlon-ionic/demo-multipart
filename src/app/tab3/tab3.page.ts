@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, NgZone, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { App, RestoredListenerEvent } from '@capacitor/app';
 import { HttpResponse, CapacitorCookies, CapacitorHttp } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
+import { isStringOrNumber } from '../util';
 
 @Component({
   selector: 'app-tab3',
@@ -11,7 +13,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page implements OnInit {
-
+  isStringOrNumber = isStringOrNumber;
   apiHost = environment.apiEndpoint;
   isLoading = false;
   uploadForm: FormGroup;
@@ -30,7 +32,8 @@ export class Tab3Page implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    console.log('init', this.platform.is('cordova'), this.platform.is('capacitor'));
+    await App.removeAllListeners();
+    const handlder = await App.addListener('appRestoredResult', (event: RestoredListenerEvent) => console.log('appRestoredResult', event));
     this.formData = new FormData();
     // await this.callPost();
   }

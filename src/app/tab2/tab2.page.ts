@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CapacitorCookies } from '@capacitor/core';
+import { isStringOrNumber } from '../util';
 
 @Component({
   selector: 'app-tab2',
@@ -11,7 +12,7 @@ import { CapacitorCookies } from '@capacitor/core';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page implements OnInit {
-
+  isStringOrNumber = isStringOrNumber;
   apiHost = environment.apiEndpoint;
   isLoading = false;
   uploadForm: FormGroup;

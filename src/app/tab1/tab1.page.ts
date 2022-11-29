@@ -4,12 +4,14 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 import { Platform } from '@ionic/angular';
 import { environment } from '../../environments/environment';
+import { isStringOrNumber } from '../util';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page implements OnInit {
+  isStringOrNumber = isStringOrNumber;
   apiHost = environment.apiEndpoint;
   isLoading = false;
   uploadForm: FormGroup;
