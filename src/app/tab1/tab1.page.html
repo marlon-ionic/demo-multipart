@@ -36,7 +36,7 @@
     <div *ngFor="let item of responseData| keyvalue">
       <span class="key">Key: <b>{{item.key}}</b></span> <span *ngIf="isStringOrNumber(item.value)" class="value">Value: <b>{{item.value}}</b></span>
       <ul *ngIf="!isStringOrNumber(item.value)">
-        <li *ngFor="let subItem or item.value | keyvalue"><span class="key">Key: <b>{{subItem.key}}</b></span> <span class="value">Value: <b>{{subItem.value}}</b></span></li>
+        <li *ngFor="let subItem of item.value | keyvalue"><span class="key">Key: <b>{{subItem.key}}</b></span> <span class="value">Value: <b>{{subItem.value}}</b></span></li>
       </ul>
     </div>
   </div>

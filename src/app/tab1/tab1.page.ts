@@ -46,8 +46,8 @@ export class Tab1Page implements OnInit {
       this.isLoading = true;
       console.log('sending POST to', `${environment.apiEndpoint}/upload`);
       const response = await this.http.post(`${environment.apiEndpoint}/upload`, this.formData, undefined);
-      this.responseData = response.data;
-      console.log('response.data', response.data, 'response',response);
+      this.responseData = JSON.parse(response.data);
+      console.log('response.data', this.responseData, 'response',response);
     } catch(e) {
       console.log('error', e);
       this.errorResponse = e;
