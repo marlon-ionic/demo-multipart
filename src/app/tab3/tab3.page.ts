@@ -6,6 +6,7 @@ import { HttpResponse, CapacitorCookies, CapacitorHttp } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { isStringOrNumber } from '../util';
+import { fromPairs } from 'lodash-es';
 
 @Component({
   selector: 'app-tab3',
@@ -20,6 +21,7 @@ export class Tab3Page implements OnInit {
   formData = new FormData();
   responseData?: any;
   errorResponse?: any;
+  cookieString?: string;
 
   constructor(private http: HttpClient, private platform: Platform, private zone: NgZone) {
     this.uploadForm = new FormGroup({
@@ -31,10 +33,27 @@ export class Tab3Page implements OnInit {
     });
   }
 
+  async clearCookies() {
+    await CapacitorCookies.clearAllCookies();
+    this.cookieString = undefined;
+  }
+
+  async getCookies() {
+    const cookieMap = await CapacitorCookies.getCookies();
+    console.log('cookieMap', cookieMap, document.cookie);
+    if(cookieMap !== undefined && cookieMap !== null) {
+      const obj = fromPairs(cookieMap);
+      console.log('fromPairs', obj, JSON.stringify(obj));
+      console.log('document.cookie', document.cookie);
+      this.cookieString = document.cookie || JSON.stringify(obj);
+    }
+  }
+
   async ngOnInit(): Promise<void> {
     await App.removeAllListeners();
     const handlder = await App.addListener('appRestoredResult', (event: RestoredListenerEvent) => console.log('appRestoredResult', event));
     this.formData = new FormData();
+    this.getCookies();
     // await this.callPost();
   }
 

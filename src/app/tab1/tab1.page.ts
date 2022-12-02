@@ -18,6 +18,7 @@ export class Tab1Page implements OnInit {
   formData = new FormData();
   responseData?: any;
   errorResponse?: any;
+  cookieString?: string;
 
   constructor(private http: HTTP, private platform: Platform, private zone: NgZone) {
     this.uploadForm = new FormGroup({
@@ -29,9 +30,19 @@ export class Tab1Page implements OnInit {
     });
   }
 
+  clearCookies() {
+    this.http.clearCookies();
+    this.cookieString = undefined;
+  }
+
+  getCookies() {
+    this.cookieString = this.http.getCookieString(environment.apiHost);
+  }
+
   async ngOnInit(): Promise<void> {
     console.log('init', this.platform.is('cordova'),this.platform.is('capacitor'));
     this.formData = new FormData();
+    this.getCookies();
     // await this.callPost();
   }
 

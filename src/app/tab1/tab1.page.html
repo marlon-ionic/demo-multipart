@@ -25,6 +25,10 @@
     </div>
   </form>
 
+  <ion-button (click)="clearCookies()">Clear Cookies</ion-button>
+  <ion-button (click)="getCookies()">Get Cookies</ion-button>
+
+  <div *ngIf="cookieString" class="cookies">{{cookieString}}</div>
 
   <div *ngIf="isLoading" class="response-container">
     <ion-chip color="warning">Loading</ion-chip>
